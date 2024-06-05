@@ -13,6 +13,7 @@ async function run() {
 
   try {
     if (!pullRequest) {
+      console.log('This action can only be run on Pull Requests');
       throw new Error('This action can only be run on Pull Requests');
     }
     else {

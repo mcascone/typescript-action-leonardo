@@ -5,6 +5,7 @@ Following along with <https://dev.to/balastrong/create-a-custom-github-action-in
 _Hey, ts actions might be cool!_
 
 ## Dev Worklow Notes
+;)
 
 ### Changes require builds
 

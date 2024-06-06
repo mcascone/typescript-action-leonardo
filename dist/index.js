@@ -29219,11 +29219,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github_1 = __nccwpck_require__(5438);
+core.info("Hello, world!");
 async function run() {
     const name = core.getInput("name");
     console.log(`Hello ${name}!`);
     const token = core.getInput("gh-token");
+    core.info(`Token: ${token}`);
     const label = core.getInput("label");
+    core.info(`Label: ${label}`);
     const octokit = (0, github_1.getOctokit)(token);
     const pullRequest = github_1.context.payload.pull_request;
     console.log("Pull Request:", pullRequest);

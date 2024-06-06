@@ -1,12 +1,16 @@
 import * as core from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 
+core.info("Hello, world!");
+
 async function run() {
   const name = core.getInput("name");
   console.log(`Hello ${name}!`);
 
   const token = core.getInput("gh-token");
+  core.info(`Token: ${token}`);
   const label = core.getInput("label");
+  core.info(`Label: ${label}`);
 
   const octokit = getOctokit(token);
   const pullRequest = context.payload.pull_request;

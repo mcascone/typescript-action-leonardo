@@ -11,6 +11,8 @@ async function run() {
   const octokit = getOctokit(token);
   const pullRequest = context.payload.pull_request;
 
+  console.log('Pull Request:', pullRequest);
+
   try {
     if (!pullRequest) {
       console.log('This action can only be run on Pull Requests');

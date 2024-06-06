@@ -22,10 +22,11 @@ alias nrp='npm run package'
 > Note! The `package` script is defined in the `package.json` file. It runs a `build` script with several options. You may need to adjust based on your build process.
 
 ## Testing with ACT
+`act` is a tool that allows you to run GitHub actions locally. It's a great way to test your actions before you push them to GitHub.
+
+Important! Any actions you take using the github octokit will actually be performed on the given repository. Be careful!
 
 ## Install into the GitHub cli
-
-`act` is a tool that allows you to run GitHub actions locally. It's a great way to test your actions before you push them to GitHub.
 
 ```bash
 # obviously requires the gh cli to be installed:

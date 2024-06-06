@@ -2,7 +2,7 @@
 
 Following along with <https://dev.to/balastrong/create-a-custom-github-action-in-typescript-21ad>
 
-_Hey, ts actions might be cool!_
+_Hey, ts actions might be cool!_ 
 
 ## Dev Worklow Notes
 

@@ -6,6 +6,7 @@
     "base": {
       "ref": "4aa71d7cd863bbc0941a79f64e3b1bfcb91e904b"
     },
-    "number": 1
+    "number": 1,
+    "action": "opened"
   }
 }

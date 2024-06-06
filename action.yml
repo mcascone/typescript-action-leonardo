@@ -19,5 +19,6 @@ inputs:
     description: "The GitHub token for authentication."
     required: true
   label:
-    description: "The label to be applied to the pull request."
+    description: "The label to be applied to/removed from the pull request."
     required: true
+    default: "needs-review"

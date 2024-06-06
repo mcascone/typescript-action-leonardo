@@ -1,12 +1,15 @@
-name: label pr
+name: label-pr
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: 
+      - opened
+      - reopened
+      - closed
 
 jobs:
-  run-my-action:
-    name: label pr
+  add-label:
+    name: label-pr
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,4 +17,3 @@ jobs:
         with:
           name: "Hax"
           gh-token: ${{ secrets.GITHUB_TOKEN }}
-          label: "needs-review"

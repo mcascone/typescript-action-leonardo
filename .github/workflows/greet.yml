@@ -1,10 +1,8 @@
 name: label pr
 
 on: 
-  workflow_dispatch:
-
-  # pull_request:
-  #   types: [opened, reopened]
+  pull_request:
+    types: [opened, reopened]
 
 jobs:
   run-my-action:

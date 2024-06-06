@@ -5,7 +5,6 @@ Following along with <https://dev.to/balastrong/create-a-custom-github-action-in
 _Hey, ts actions might be cool!_
 
 ## Dev Worklow Notes
-;)
 
 ### Changes require builds
 
@@ -35,7 +34,7 @@ brew install gh
 
 # then install the act extension
 gh extension install act
-
+v
 # you can also install act directly with homebrew:
 # brew install act
 # I don't know why, it just feels more 'right' to install it and have it coexist with gh

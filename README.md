@@ -1,6 +1,6 @@
 # typescript-actions-learning
 
-Following along with https://dev.to/balastrong/create-a-custom-github-action-in-typescript-21ad
+Following along with <https://dev.to/balastrong/create-a-custom-github-action-in-typescript-21ad>
 
 _Hey, ts actions might be cool!_
 
@@ -9,6 +9,7 @@ _Hey, ts actions might be cool!_
 ### Changes require builds
 
 When you make changes to the action, you need to rebuild it.
+
 ```bash
 npm run package
 
@@ -55,15 +56,16 @@ alias act='gh act --container-architecture=linux/amd64 -s GITHUB_TOKEN="$(gh aut
 
 For testing PRs and other events, we have to provide a payload file. This is a JSON file that contains the event data that would be sent to the action by GitHub.
 
+In this example, we're testing a PR event. The payload file looks like this. I just picked the top two commits and set the PR number to 1:
+
 ```json
-// event.json
 {
   "pull_request": {
     "head": {
-      "ref": "db1d7aa0d264edc6a44652b684685170097491ce" // i just picked the latest commit SHA
+      "ref": "db1d7aa0d264edc6a44652b684685170097491ce"
     },
     "base": {
-      "ref": "4aa71d7cd863bbc0941a79f64e3b1bfcb91e904b" // the main SHA
+      "ref": "4aa71d7cd863bbc0941a79f64e3b1bfcb91e904b"
     },
     "number": 1
   }

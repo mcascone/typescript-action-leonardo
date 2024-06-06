@@ -1,25 +1,24 @@
-import { getInput, setFailed } from '@actions/core';
-import { context, getOctokit } from '@actions/github';
+import * as core from "@actions/core";
+import { context, getOctokit } from "@actions/github";
 
 async function run() {
-  const name = getInput('name');
+  const name = core.getInput("name");
   console.log(`Hello ${name}!`);
 
-  const token = getInput('gh-token');
-  const label = getInput('label');
+  const token = core.getInput("gh-token");
+  const label = core.getInput("label");
 
   const octokit = getOctokit(token);
   const pullRequest = context.payload.pull_request;
 
-  console.log('Pull Request:', pullRequest);
+  console.log("Pull Request:", pullRequest);
 
   try {
     if (!pullRequest) {
-      console.log('This action can only be run on Pull Requests');
-      throw new Error('This action can only be run on Pull Requests');
-    }
-    else {
-      console.log(`Adding label "${label}" to PR #${pullRequest.number}`);
+      core.info("This action can only be run on Pull Requests");
+      throw new Error("This action can only be run on Pull Requests");
+    } else {
+      core.info(`Adding label "${label}" to PR #${pullRequest.number}`);
     }
 
     await octokit.rest.issues.addLabels({
@@ -29,7 +28,7 @@ async function run() {
       labels: [label],
     });
   } catch (error) {
-    setFailed((error as Error)?.message ?? 'Unknown error');
+    core.setFailed((error as Error)?.message ?? "Unknown error");
   }
 }
 

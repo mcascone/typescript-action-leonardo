@@ -20,10 +20,12 @@ async function run() {
     return;
   }
 
-  const pr_type = pullRequest.action;
+  const pr_type = pullRequest.state;
+  const pr_number = pullRequest.number;
 
-  console.log("Pull Request:", pullRequest);
+  // console.log("Pull Request:", pullRequest);
   core.info(`PR Type: ${pr_type}`);
+  core.info(`PR Number: ${pr_number}`);
 
   try {
     let action: 'addLabels' | 'removeLabel';
@@ -32,17 +34,15 @@ async function run() {
     const values: any = {
       owner: context.repo.owner,
       repo: context.repo.repo,
-      issue_number: pullRequest.number
+      issue_number: pr_number
     }
 
     switch (pr_type) {
-      case "opened":
-        core.info(`Adding label "${label}" to PR #${pullRequest.number}`);
+      case "open":
         action = 'addLabels';
         values.labels = [label];
         break;
       case "closed":
-        core.info(`Removing label "${label}" from PR #${pullRequest.number}`);
         action = 'removeLabel';
         values.name = label;
         break;
@@ -51,6 +51,7 @@ async function run() {
         throw new Error("This action can only be run on Pull Requests");
     }
 
+    core.info(`Running "${action}" on label "${label}" on PR #${pr_number}`);
     await octokit.rest.issues[action](values)
 
   } catch (error) {

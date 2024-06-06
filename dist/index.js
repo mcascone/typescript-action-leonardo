@@ -29219,7 +29219,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github_1 = __nccwpck_require__(5438);
-core.info("Hello, world!");
 async function run() {
     const name = core.getInput("name");
     console.log(`Hello ${name}!`);
@@ -29229,22 +29228,40 @@ async function run() {
     core.info(`Label: ${label}`);
     const octokit = (0, github_1.getOctokit)(token);
     const pullRequest = github_1.context.payload.pull_request;
-    core.info("Context:" + JSON.stringify(github_1.context, null, 2));
-    console.log("Pull Request:", pullRequest);
+    // action shouldn't run on anything other than PRs
+    // bail early if this is not a pull request and somehow got here
+    if (!pullRequest) {
+        core.setFailed("No pull request found in the context.");
+        return;
+    }
+    const pr_type = pullRequest.state;
+    const pr_number = pullRequest.number;
+    // console.log("Pull Request:", pullRequest);
+    core.info(`PR Type: ${pr_type}`);
+    core.info(`PR Number: ${pr_number}`);
     try {
-        if (!pullRequest) {
-            core.info("This action can only be run on Pull Requests");
-            throw new Error("This action can only be run on Pull Requests");
-        }
-        else {
-            core.info(`Adding label "${label}" to PR #${pullRequest.number}`);
-        }
-        await octokit.rest.issues.addLabels({
+        let action;
+        // Use 'any' type for 'values' to allow flexible property assignment
+        const values = {
             owner: github_1.context.repo.owner,
             repo: github_1.context.repo.repo,
-            issue_number: pullRequest.number,
-            labels: [label],
-        });
+            issue_number: pr_number
+        };
+        switch (pr_type) {
+            case "open":
+                action = 'addLabels';
+                values.labels = [label];
+                break;
+            case "closed":
+                action = 'removeLabel';
+                values.name = label;
+                break;
+            default:
+                core.info("This action can only be run on Pull Requests");
+                throw new Error("This action can only be run on Pull Requests");
+        }
+        core.info(`Running "${action}" on label "${label}" on PR #${pr_number}`);
+        await octokit.rest.issues[action](values);
     }
     catch (error) {
         core.setFailed(error?.message ?? "Unknown error");
